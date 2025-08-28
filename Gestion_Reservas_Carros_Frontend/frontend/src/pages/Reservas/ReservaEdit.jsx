@@ -22,21 +22,21 @@ const ReservaEdit = () => {
       try {
         // Traer clientes
         const resClientes = await axios.get(
-          "https://gestionmatriculas-production.up.railway.app/api/clientes",
+          "https://gesvehiculosbackend-production.up.railway.app/api/clientes",
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setClientes(resClientes.data);
 
         // Traer vehículos
         const resVehiculos = await axios.get(
-          "https://gestionmatriculas-production.up.railway.app/api/vehiculos",
+          "https://gesvehiculosbackend-production.up.railway.app/api/vehiculos",
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setVehiculos(resVehiculos.data);
 
         // Traer reserva específica
         const resReservas = await axios.get(
-          "https://gestionmatriculas-production.up.railway.app/api/reservas",
+          "https://gesvehiculosbackend-production.up.railway.app/api/reservas",
           { headers: { Authorization: `Bearer ${token}` } }
         );
         const reserva = resReservas.data.find(r => r._id === id);
@@ -66,7 +66,7 @@ const ReservaEdit = () => {
   const updateReserva = async (data) => {
     try {
       await axios.put(
-        `https://gestionmatriculas-production.up.railway.app/api/reservas/${id}`,
+        `https://gesvehiculosbackend-production.up.railway.app/api/reservas/${id}`,
         data,
         { headers: { Authorization: `Bearer ${token}` } }
       );
