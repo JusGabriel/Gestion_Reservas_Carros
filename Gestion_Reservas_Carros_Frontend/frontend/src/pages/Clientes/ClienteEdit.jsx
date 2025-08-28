@@ -1,4 +1,4 @@
-// src/pages/cliente/ClienteEdit.jsx
+// src/pages/clientes/ClienteEdit.jsx
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
@@ -19,17 +19,23 @@ const ClienteEdit = () => {
     const fetchCliente = async () => {
       try {
         const response = await axios.get(
-          "https://gesvehiculosbackend-production.up.railway.app/api/clientes",
-          { headers: { Authorization: `Bearer ${token}` } }
+          `https://gesvehiculosbackend-production.up.railway.app/api/clientes/${id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
 
-        const cliente = response.data.find(e => e._id === id);
+        const cliente = response.data;
         if (!cliente) {
           toast.error("Cliente no encontrado");
-          navigate("/dashboard/Clientes");
+          navigate("/dashboard/clientes");
           return;
         }
 
+        // Setea los valores en el formulario
         setValue("nombre", cliente.nombre);
         setValue("apellido", cliente.apellido);
         setValue("fecha_nacimiento", cliente.fecha_nacimiento?.split("T")[0] || "");
@@ -43,6 +49,7 @@ const ClienteEdit = () => {
       } catch (error) {
         toast.error("Error al cargar datos del cliente");
         console.error(error);
+        navigate("/dashboard/clientes");
       }
     };
 
@@ -52,9 +59,14 @@ const ClienteEdit = () => {
   const updateCliente = async (data) => {
     try {
       await axios.put(
-        `https://gestionmatriculas-production.up.railway.app/api/clientes/${id}`,
+        `https://gesvehiculosbackend-production.up.railway.app/api/clientes/${id}`,
         data,
-        { headers: { Authorization: `Bearer ${token}` } }
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
 
       toast.success("Cliente actualizado con éxito");
@@ -65,7 +77,8 @@ const ClienteEdit = () => {
     }
   };
 
-  if (loading) return <p style={{ textAlign: "center", marginTop: "2rem" }}>Cargando cliente...</p>;
+  if (loading)
+    return <p style={{ textAlign: "center", marginTop: "2rem" }}>Cargando cliente...</p>;
 
   return (
     <div style={container}>
@@ -73,13 +86,27 @@ const ClienteEdit = () => {
       <div style={formWrapper}>
         <h2 style={title}>Editar Cliente</h2>
         <form onSubmit={handleSubmit(updateCliente)} style={formStyle}>
-          <input type="text" placeholder="Nombre" {...register("nombre", { required: "El nombre es obligatorio" })} style={inputStyle} />
+          <input
+            type="text"
+            placeholder="Nombre"
+            {...register("nombre", { required: "El nombre es obligatorio" })}
+            style={inputStyle}
+          />
           {errors.nombre && <p style={errorText}>{errors.nombre.message}</p>}
 
-          <input type="text" placeholder="Apellido" {...register("apellido", { required: "El apellido es obligatorio" })} style={inputStyle} />
+          <input
+            type="text"
+            placeholder="Apellido"
+            {...register("apellido", { required: "El apellido es obligatorio" })}
+            style={inputStyle}
+          />
           {errors.apellido && <p style={errorText}>{errors.apellido.message}</p>}
 
-          <input type="date" {...register("fecha_nacimiento", { required: "La fecha de nacimiento es obligatoria" })} style={inputStyle} />
+          <input
+            type="date"
+            {...register("fecha_nacimiento", { required: "La fecha de nacimiento es obligatoria" })}
+            style={inputStyle}
+          />
           {errors.fecha_nacimiento && <p style={errorText}>{errors.fecha_nacimiento.message}</p>}
 
           <input type="text" placeholder="Cédula" {...register("cedula")} style={inputStyle} />
