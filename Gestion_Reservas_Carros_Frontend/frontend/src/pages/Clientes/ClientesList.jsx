@@ -1,3 +1,4 @@
+// src/pages/clientes/ClientesList.jsx
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaEdit, FaTrash, FaUserPlus } from "react-icons/fa";
@@ -8,19 +9,17 @@ export default function ClientesList() {
   const [clientes, setClientes] = useState([]);
   const { token } = storeAuth();
 
-  const headers = {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  };
-
   useEffect(() => {
     const fetchClientes = async () => {
       try {
         const response = await axios.get(
           "https://gesvehiculosbackend-production.up.railway.app/api/clientes",
-          headers
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         setClientes(response.data);
       } catch (error) {
@@ -28,24 +27,27 @@ export default function ClientesList() {
       }
     };
     fetchClientes();
-  }, []);
+  }, [token]);
 
-const handleDelete = async (id) => {
-  try {
-    await axios.delete(
-      `https://gesvehiculosbackend-production.up.railway.app/api/clientes/${id}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    setClientes(clientes.filter((e) => e._id !== id));
-  } catch (error) {
-    console.error("Error al eliminar cliente:", error);
-  }
-};
+  const handleDelete = async (id) => {
+    if (!window.confirm("¿Estás seguro de que deseas eliminar este cliente?")) return;
+
+    try {
+      await axios.delete(
+        `https://gesvehiculosbackend-production.up.railway.app/api/clientes/${id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      // Actualiza el estado eliminando el cliente sin recargar
+      setClientes(clientes.filter((e) => e._id !== id));
+    } catch (error) {
+      console.error("Error al eliminar cliente:", error);
+    }
+  };
 
   return (
     <div style={container}>
@@ -75,34 +77,33 @@ const handleDelete = async (id) => {
               </tr>
             </thead>
             <tbody>
-              {clientes.map((e) => (
-                <tr key={e._id} style={tr}>
-                  <td style={td}>{e.nombre}</td>
-                  <td style={td}>{e.apellido}</td>
-                  <td style={td}>{e.cedula || "-"}</td>
-                  <td style={td}>{e.fecha_nacimiento.split("T")[0]}</td>
-                  <td style={td}>{e.ciudad || "-"}</td>
-                  <td style={td}>{e.direccion || "-"}</td>
-                  <td style={td}>{e.telefono || "-"}</td>
-                  <td style={td}>{e.email || "-"}</td>
-                  <td style={tdCenter}>
-                    <Link to={`/dashboard/clientes/edit/${e._id}`}>
-                      <button style={editButton}><FaEdit /></button>
-                    </Link>
-                  <button
-                    onClick={() => {
-                      if (window.confirm("¿Estás seguro de que deseas eliminar este cliente?")) {
-                        handleDelete(e._id);
-                      }
-                    }}
-                    style={deleteButton}
-                  >
-                    <FaTrash />
-                  </button>
-                  </td>
-                </tr>
-              ))}
-              {clientes.length === 0 && (
+              {clientes.length > 0 ? (
+                clientes.map((e) => (
+                  <tr key={e._id} style={tr}>
+                    <td style={td}>{e.nombre}</td>
+                    <td style={td}>{e.apellido}</td>
+                    <td style={td}>{e.cedula || "-"}</td>
+                    <td style={td}>{e.fecha_nacimiento.split("T")[0]}</td>
+                    <td style={td}>{e.ciudad || "-"}</td>
+                    <td style={td}>{e.direccion || "-"}</td>
+                    <td style={td}>{e.telefono || "-"}</td>
+                    <td style={td}>{e.email || "-"}</td>
+                    <td style={tdCenter}>
+                      <Link to={`/dashboard/clientes/edit/${e._id}`}>
+                        <button style={editButton}>
+                          <FaEdit />
+                        </button>
+                      </Link>
+                      <button
+                        onClick={() => handleDelete(e._id)}
+                        style={deleteButton}
+                      >
+                        <FaTrash />
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
                 <tr>
                   <td colSpan="9" style={emptyMessage}>
                     No hay clientes registrados
@@ -156,7 +157,7 @@ const table = {
   width: "100%",
   minWidth: "900px",
   borderCollapse: "collapse",
-  tableLayout: "auto", // Cambiado para permitir texto largo
+  tableLayout: "auto",
 };
 
 const th = {
@@ -175,11 +176,27 @@ const tr = {
 const td = {
   padding: "12px 10px",
   textAlign: "center",
-  whiteSpace: "normal", // permite envolver el texto
-  wordBreak: "break-word", // quiebra texto largo
+  whiteSpace: "normal",
+  wordBreak: "break-word",
 };
 
 const tdCenter = { ...td, display: "flex", justifyContent: "center", gap: "10px" };
-const editButton = { padding: "6px 12px", background: "#4A90E2", color: "#fff", border: "none", borderRadius: "6px", cursor: "pointer", fontWeight: "500" };
-const deleteButton = { padding: "6px 12px", background: "#E04A4A", color: "#fff", border: "none", borderRadius: "6px", cursor: "pointer", fontWeight: "500" };
+const editButton = {
+  padding: "6px 12px",
+  background: "#4A90E2",
+  color: "#fff",
+  border: "none",
+  borderRadius: "6px",
+  cursor: "pointer",
+  fontWeight: "500",
+};
+const deleteButton = {
+  padding: "6px 12px",
+  background: "#E04A4A",
+  color: "#fff",
+  border: "none",
+  borderRadius: "6px",
+  cursor: "pointer",
+  fontWeight: "500",
+};
 const emptyMessage = { textAlign: "center", padding: "20px", color: "#777" };
