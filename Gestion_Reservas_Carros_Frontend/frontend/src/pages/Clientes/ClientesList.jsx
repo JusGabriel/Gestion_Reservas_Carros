@@ -33,7 +33,7 @@ export default function ClientesList() {
   const handleDelete = async (id) => {
     try {
       await axios.delete(
-        `https://gestionmatriculas-production.up.railway.app/api/clientes/${id}`,
+        `https://gesvehiculosbackend-production.up.railway.app/api/clientes/${id}`,
         headers
       );
       setClientes(clientes.filter((e) => e._id !== id));
@@ -84,12 +84,16 @@ export default function ClientesList() {
                     <Link to={`/dashboard/clientes/edit/${e._id}`}>
                       <button style={editButton}><FaEdit /></button>
                     </Link>
-                    <button
-                      onClick={() => handleDelete(e._id)}
-                      style={deleteButton}
-                    >
-                      <FaTrash />
-                    </button>
+                  <button
+                    onClick={() => {
+                      if (window.confirm("¿Estás seguro de que deseas eliminar este cliente?")) {
+                        handleDelete(e._id);
+                      }
+                    }}
+                    style={deleteButton}
+                  >
+                    <FaTrash />
+                  </button>
                   </td>
                 </tr>
               ))}
