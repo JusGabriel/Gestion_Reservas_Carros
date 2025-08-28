@@ -19,7 +19,7 @@ export default function ClientesList() {
     const fetchClientes = async () => {
       try {
         const response = await axios.get(
-          "https://gestionmatriculas-production.up.railway.app/api/estudiantes",
+          "https://gesvehiculosbackend-production.up.railway.app/api/estudiantes",
           headers
         );
         setClientes(response.data);
