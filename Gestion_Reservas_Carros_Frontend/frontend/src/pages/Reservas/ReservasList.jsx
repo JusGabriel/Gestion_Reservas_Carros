@@ -20,7 +20,7 @@ const ReservasList = () => {
     const fetchReservas = async () => {
       try {
         const response = await axios.get(
-          "https://gestionmatriculas-production.up.railway.app/api/reservas",
+          "https://gesvehiculosbackend-production.up.railway.app/api/reservas",
           headers
         );
         setReservas(response.data);
@@ -34,7 +34,7 @@ const ReservasList = () => {
   const handleDelete = async (id) => {
     try {
       await axios.delete(
-        `https://gestionmatriculas-production.up.railway.app/api/reservas/${id}`,
+        `https://gesvehiculosbackend-production.up.railway.app/api/reservas/${id}`,
         headers
       );
       setReservas(reservas.filter((r) => r._id !== id));
