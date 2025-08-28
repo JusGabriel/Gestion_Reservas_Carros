@@ -30,7 +30,6 @@ export default function VehiculoEdit() {
     },
   };
 
-  // --- Cargar vehículo existente ---
   useEffect(() => {
     const fetchVehiculos = async () => {
       try {
@@ -67,17 +66,15 @@ export default function VehiculoEdit() {
     fetchVehiculos();
   }, [id, token, navigate]);
 
-  // --- Manejo de cambios en inputs ---
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // --- Actualizar vehículo ---
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await axios.put(
-        `https://gestionmatriculas-production.up.railway.app/api/vehiculos/${id}`,
+        `https://gesvehiculosbackend-production.up.railway.app/api/vehiculos/${id}`,
         {
           ...form,
           anio_fabricacion: parseInt(form.anio_fabricacion, 10),
