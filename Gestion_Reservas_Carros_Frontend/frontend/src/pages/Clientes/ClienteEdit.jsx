@@ -19,7 +19,7 @@ const ClienteEdit = () => {
     const fetchCliente = async () => {
       try {
         const response = await axios.get(
-          "https://gestionmatriculas-production.up.railway.app/api/clientes",
+          "https://gesvehiculosbackend-production.up.railway.app/api/clientes",
           { headers: { Authorization: `Bearer ${token}` } }
         );
 
@@ -30,7 +30,6 @@ const ClienteEdit = () => {
           return;
         }
 
-        // Llenar formulario
         setValue("nombre", cliente.nombre);
         setValue("apellido", cliente.apellido);
         setValue("fecha_nacimiento", cliente.fecha_nacimiento?.split("T")[0] || "");
