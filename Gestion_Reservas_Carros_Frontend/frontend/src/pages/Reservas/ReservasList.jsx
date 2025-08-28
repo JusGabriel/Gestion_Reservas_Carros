@@ -5,7 +5,7 @@ import { FaEdit, FaTrash, FaClipboardList } from "react-icons/fa";
 import axios from "axios";
 import storeAuth from "../../context/storeAuth";
 
-export default function ReservasList() {
+const ReservasList = () => {
   const [reservas, setReservas] = useState([]);
   const { token } = storeAuth();
 
@@ -192,3 +192,5 @@ const emptyMessage = {
   padding: "20px",
   color: "#777",
 };
+
+export default ReservasList;
