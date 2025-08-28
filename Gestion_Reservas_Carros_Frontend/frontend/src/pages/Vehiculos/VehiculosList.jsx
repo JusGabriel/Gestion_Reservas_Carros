@@ -89,12 +89,16 @@ export default function VehiculosList() {
                           <FaEdit />
                         </button>
                       </Link>
-                      <button
-                        onClick={() => handleDelete(v._id)}
-                        style={deleteButton}
-                      >
-                        <FaTrash />
-                      </button>
+                    <button
+                      onClick={() => {
+                        if (window.confirm("¿Estás seguro de que deseas eliminar este vehículo?")) {
+                          handleDelete(v._id);
+                        }
+                      }}
+                      style={deleteButton}
+                    >
+                      <FaTrash />
+                    </button>
                     </td>
                   </tr>
                 ))
