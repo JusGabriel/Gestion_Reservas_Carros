@@ -33,7 +33,7 @@ const ClienteEdit = () => {
 
         if (!cliente) {
           toast.error("Cliente no encontrado");
-          navigate("/dashboard/Clientes");
+          navigate("/dashboard/clientes");
           return;
         }
 
@@ -61,7 +61,7 @@ const ClienteEdit = () => {
   const updateCliente = async (data) => {
     try {
       await axios.put(
-        `https://gestionmatriculas-production.up.railway.app/api/clientes/${id}`,
+        `https://gesvehiculosbackend-production.up.railway.app/api/clientes/${id}`,
         data,
         {
           headers: { Authorization: `Bearer ${token}` }
