@@ -38,7 +38,7 @@ const ClienteCreate = () => {
       }
 
       toast.success("Cliente creado con éxito");
-      setTimeout(() => navigate("/dashboard/cliente"), 1500);
+      setTimeout(() => navigate("/dashboard/clientes"), 1500);
 
     } catch (error) {
       toast.error("Ocurrió un error inesperado");
