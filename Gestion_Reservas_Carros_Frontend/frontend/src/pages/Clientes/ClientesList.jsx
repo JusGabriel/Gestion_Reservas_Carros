@@ -19,7 +19,7 @@ export default function ClientesList() {
     const fetchClientes = async () => {
       try {
         const response = await axios.get(
-          "https://gesvehiculosbackend-production.up.railway.app/api/estudiantes",
+          "https://gesvehiculosbackend-production.up.railway.app/api/clientes",
           headers
         );
         setClientes(response.data);
@@ -33,7 +33,7 @@ export default function ClientesList() {
   const handleDelete = async (id) => {
     try {
       await axios.delete(
-        `https://gestionmatriculas-production.up.railway.app/api/estudiantes/${id}`,
+        `https://gestionmatriculas-production.up.railway.app/api/clientes/${id}`,
         headers
       );
       setClientes(clientes.filter((e) => e._id !== id));
