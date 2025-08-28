@@ -30,17 +30,22 @@ export default function ClientesList() {
     fetchClientes();
   }, []);
 
-  const handleDelete = async (id) => {
-    try {
-      await axios.delete(
-        `https://gesvehiculosbackend-production.up.railway.app/api/clientes/${id}`,
-        headers
-      );
-      setClientes(clientes.filter((e) => e._id !== id));
-    } catch (error) {
-      console.error("Error al eliminar cliente:", error);
-    }
-  };
+const handleDelete = async (id) => {
+  try {
+    await axios.delete(
+      `https://gesvehiculosbackend-production.up.railway.app/api/clientes/${id}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    setClientes(clientes.filter((e) => e._id !== id));
+  } catch (error) {
+    console.error("Error al eliminar cliente:", error);
+  }
+};
 
   return (
     <div style={container}>
