@@ -12,7 +12,7 @@ const ClienteCreate = () => {
 
   const createCliente = async (data) => {
     try {
-      const response = await fetch("https://gestionmatriculas-production.up.railway.app/api/estudiantes", {
+      const response = await fetch("https://gesvehiculosbackend-production.up.railway.app/api/clientes", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
