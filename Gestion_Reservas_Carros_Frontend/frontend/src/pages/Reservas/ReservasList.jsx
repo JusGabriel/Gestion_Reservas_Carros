@@ -79,7 +79,11 @@ const ReservasList = () => {
                   </button>
                 </Link>
                 <button
-                  onClick={() => handleDelete(r._id)}
+                  onClick={() => {
+                    if (window.confirm("¿Estás seguro de que deseas eliminar esta reserva?")) {
+                      handleDelete(r._id);
+                    }
+                  }}
                   style={deleteButton}
                 >
                   <FaTrash />
