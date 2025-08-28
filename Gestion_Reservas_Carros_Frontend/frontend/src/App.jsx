@@ -8,11 +8,12 @@ import Home from "./pages/Home"; // ← agregada
 // Clientes
 import ClienteCreate from "./pages/Clientes/ClienteCreate";
 import ClientesList from "./pages/Clientes/ClientesList";
+import ClienteEdit from "./pages/Clientes/ClienteEdit";
 
 // Reservas
-import ReservasList from "./pages/reservas/ReservasList";
-import ReservaCreate from "./pages/reservas/ReservaCreate";
-import ReservaEdit from "./pages/reservas/ReservaEdit";
+import ReservasList from "./pages/Reservas/ReservasList";
+import ReservaCreate from "./pages/Reservas/ReservaCreate";
+import ReservaEdit from "./pages/Reservas/ReservaEdit";
 
 // Vehiculos
 import VehiculosList from "./pages/Vehiculos/VehiculosList";
@@ -23,7 +24,6 @@ import PublicRoute from "./routers/PublicRoute";
 import ProtectedRoute from "./routers/ProtectedRoute";
 
 import NotFound from "./pages/NotFound";
-import ClienteEdit from "./pages/Clientes/ClienteEdit";
 
 function App() {
   return (
@@ -62,5 +62,6 @@ function App() {
 }
 
 export default App;
+
 
 
