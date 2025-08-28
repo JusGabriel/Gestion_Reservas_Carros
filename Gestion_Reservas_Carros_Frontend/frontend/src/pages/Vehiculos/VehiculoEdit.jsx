@@ -35,7 +35,7 @@ export default function VehiculoEdit() {
     const fetchVehiculos = async () => {
       try {
         const response = await axios.get(
-          `https://gestionmatriculas-production.up.railway.app/api/vehiculos`,
+          `https://gesvehiculosbackend-production.up.railway.app/api/vehiculos`,
           headers
         );
 
