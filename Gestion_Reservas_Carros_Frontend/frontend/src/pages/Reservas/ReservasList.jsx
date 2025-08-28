@@ -67,26 +67,26 @@ const ReservasList = () => {
           </thead>
           <tbody>
             {reservas.map((r) => (
-              <tr key={r._id} style={tr}>
-                <td style={td}>{r.codigo}</td>
-                <td style={td}>{r.descripcion}</td>
-                <td style={td}>{r.cliente}</td>
-                <td style={td}>{r.vehiculo}</td>
-                <td style={tdCenter}>
-                  <Link to={`/dashboard/reservas/edit/${r._id}`}>
-                    <button style={editButton}>
-                      <FaEdit />
-                    </button>
-                  </Link>
-                  <button
-                    onClick={() => handleDelete(r._id)}
-                    style={deleteButton}
-                  >
-                    <FaTrash />
+            <tr key={r._id} style={tr}>
+              <td style={td}>{r.codigo}</td>
+              <td style={td}>{r.descripcion}</td>
+              <td style={td}>{r.cliente?.nombre} {r.cliente?.apellido}</td>
+              <td style={td}>{r.vehiculo?.marca} {r.vehiculo?.modelo} ({r.vehiculo?.placa})</td>
+              <td style={tdCenter}>
+                <Link to={`/dashboard/reservas/edit/${r._id}`}>
+                  <button style={editButton}>
+                    <FaEdit />
                   </button>
-                </td>
-              </tr>
-            ))}
+                </Link>
+                <button
+                  onClick={() => handleDelete(r._id)}
+                  style={deleteButton}
+                >
+                  <FaTrash />
+                </button>
+              </td>
+            </tr>
+          ))}
             {reservas.length === 0 && (
               <tr>
                 <td colSpan="5" style={emptyMessage}>
