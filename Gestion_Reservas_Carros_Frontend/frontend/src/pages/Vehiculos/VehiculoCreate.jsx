@@ -14,7 +14,7 @@ const VehiculoCreate = () => {
   const createVehiculo = async (data) => {
     try {
       const response = await fetch(
-        "https://gestionmatriculas-production.up.railway.app/api/vehiculos", // <-- Cambiar si usas otro endpoint
+        "https://gesvehiculosbackend-production.up.railway.app/api/vehiculos", // <-- Cambiar si usas otro endpoint
         {
           method: "POST",
           headers: {
